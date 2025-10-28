@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun | Celestia Nexus</title>
+    
+    <!-- Link to Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Link to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles for this page -->
+    <style>
+        /* Apply base styles consistent with the main page */
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #000000;
+            color: #E0E0E0;
+            /* The path is '../' because this file is in a subfolder */
+            background-image: url('../images/Main Background Full.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            opacity: 0; /* Initially hidden for fade-in transition */
+            animation: fadeInPage 0.5s ease-out forwards;
+        }
+        h1, h2, h3 {
+            font-family: 'Krona One', sans-serif;
+        }
+        /* Style for the active toggle button */
+        .toggle-btn.active {
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+        /* Fade-in animation for page load */
+        @keyframes fadeInPage {
+            to { opacity: 1; }
+        }
+        /* Animation for the planet image */
+        .planet-image {
+            animation: fadeInPlanet 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            transform: scale(0);
+            opacity: 0;
+        }
+        @keyframes fadeInPlanet {
+            to {
+                transform: scale(3);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- Left Column: Planet Image (1/5th width on medium screens and up) -->
+    <div class="w-auto h-auto md:w-1/5 md:max-h-screen flex items-center overflow-y-auto ">
+        <img src="../images/Pluto.png" alt="Pluto" class="planet-image w-full h-auto max-w-full md:max-w-full">
+    </div>
+
+    <!-- Right Column: Content (Full width on small screens, 4/5th on medium and up) -->
+    <main class="w-full md:w-4/5 p-6 sm:p-8 md:p-12 lg:p-16 overflow-y-auto">
+        
+        <!-- Back Link -->
+        <a href="../index.html" class="inline-block text-neutral-400 hover:text-white transition-colors mb-8">&larr; Back to Nexus</a>
+
+        <!-- Title -->
+        <h1 class="text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-8">PLUTO</h1>
+
+        <!-- Toggle Section -->
+        <div>
+            <!-- Toggle Buttons -->
+            <div class="flex border border-neutral-700 rounded-lg p-1 mb-6 max-w-xs">
+                <button id="astroToggle" class="toggle-btn w-1/2 p-2 rounded-md text-center transition-colors duration-300 active">
+                    Astrology
+                </button>
+                <button id="nomyToggle" class="toggle-btn w-1/2 p-2 rounded-md text-center transition-colors duration-300">
+                    Astronomy
+                </button>
+            </div>
+
+            <!-- Content Panes -->
+            <div class="text-neutral-300 leading-relaxed max-w-4xl">
+                <!-- Astrology Content -->
+                <div id="astrologyContent">
+                    <h2 class="text-2xl text-white mb-4">Astrological Significance</h2>
+                    <p class="mb-4">In astrology, the Sun represents the conscious ego, the self and its expression, personal power, pride and authority, leadership qualities and the principles of creativity, spontaneity, health and vitality, the life force.</p>
+                    <p class="mb-4">It is the core of your potential and uniqueness as an individual. The Sun's placement in a zodiac sign reveals the primal urges and the fundamental motivations of an individual. It signifies how we shine our light into the world.</p>
+                </div>
+
+                <!-- Astronomy Content -->
+                <div id="astronomyContent" class="hidden">
+                    <h2 class="text-2xl text-white mb-4">Astronomical Facts</h2>
+                    <p class="mb-4">The Sun is the star at the center of the Solar System. It is a nearly perfect ball of hot plasma, heated to incandescence by nuclear fusion reactions in its core. The Sun radiates this energy mainly as light, ultraviolet, and infrared radiation, and is the most important source of energy for life on Earth.</p>
+                    <p class="mb-4">Its diameter is about 1.39 million kilometers (864,000 miles), or 109 times that of Earth. Its mass is about 330,000 times that of Earth, making up about 99.86% of the total mass of the Solar System.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <script>
+        const astroToggle = document.getElementById('astroToggle');
+        const nomyToggle = document.getElementById('nomyToggle');
+        const astrologyContent = document.getElementById('astrologyContent');
+        const astronomyContent = document.getElementById('astronomyContent');
+
+        function showAstrology() {
+            astrologyContent.classList.remove('hidden');
+            astronomyContent.classList.add('hidden');
+            astroToggle.classList.add('active');
+            nomyToggle.classList.remove('active');
+        }
+
+        function showAstronomy() {
+            astronomyContent.classList.remove('hidden');
+            astrologyContent.classList.add('hidden');
+            nomyToggle.classList.add('active');
+            astroToggle.classList.remove('active');
+        }
+
+        astroToggle.addEventListener('click', showAstrology);
+        nomyToggle.addEventListener('click', showAstronomy);
+    </script>
+</body>
+</html>
