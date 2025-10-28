@@ -6,8 +6,8 @@ body {
     background-color: #050810;
     color: #E0E0E0;
     
-    /* --- HOVERING BACKGROUND IMAGE --- */
-    background-image: url("../images/Main Background Full.png");
+  
+    background-image: url("images/Main Background Full.png");
     
     /* Set the background to be slightly larger than the screen to allow movement */
     background-size: 120% 120%;
