@@ -5,33 +5,28 @@ body {
     background-color: #050810;
     color: #E0E0E0;
     
-    /* --- HOVERING BACKGROUND IMAGE --- */
     background-image: url("images/Main Background Full.png");
     
-    /* Set the background to be slightly larger than the screen to allow movement */
     background-size: 120% 120%; 
     
-    /* Start the background in the center */
     background-position: center center;
 
-    /* Add a smooth transition for the background movement */
     transition: background-position 0.2s ease-out;
 }
 
-/* --- TYPOGRAPHY --- */
 h1, h2 {
     font-family: 'Krona One', sans-serif;
     font-weight: 2000;
-    color: #ffffff; /* A vibrant, futuristic cyan for headings */
+    color: #ffffff;
 }
 
 h2 {
-    /* Uses Tailwind classes from the HTML for size */
+
     margin-bottom: 0.5rem;
 }
 
 header p {
-    color: #ffffff; /* A softer, space-like purple-gray */
+    color: #ffffff;
 }
 
 /* --- PHOTO GRID STYLES --- */
