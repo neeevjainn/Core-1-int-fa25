@@ -32,7 +32,7 @@
             width: 100%;
             height: 120vh;
             z-index: -1;
-            background-image: url('../images/The\ Sun-FullBG.png'); 
+            background-image: url('/images/The Sun-FullBG.png Sun-FullBG.png'); 
             background-size: cover;
             background-position: center;
             opacity: 0.4;
@@ -133,7 +133,7 @@
             color: #666;
         }
         
-        /* Animation for content switch */
+    
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -141,24 +141,69 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+       
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px); 
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+       
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="min-h-screen flex">
 
-    <!-- 1. Background Layer -->
     <div id="parallaxBg" class="parallax-bg"></div>
 
-    <!-- 2. Vertical Sidebar -->
+
     <nav class="sidebar fixed top-0 left-0 h-screen w-20 flex flex-col items-center py-6 z-50 hidden md:flex overflow-y-auto">
-        <!-- Home Button -->
+
+    
         <a href="index.html" class="nav-icon mb-4" title="Home">
             <i class="ph ph-house text-2xl"></i>
         </a>
         
-        <!-- Divider/Spacer -->
         <div class="w-8 h-px bg-neutral-800 mb-6"></div>
 
-        <!-- Numbered Links 01-11 -->
         <div class="flex flex-col gap-4 w-full text-center">
             <a href="entry-1.html" class="nav-link-num">01</a>
             <a href="entry-2.html" class="nav-link-num">02</a>
@@ -174,28 +219,31 @@
         </div>
     </nav>
 
-    <!-- 3. Main Content Area -->
-    <main class="flex-1 md:ml-20 p-6 md:p-16 lg:p-24 relative z-10">
+
+    <main class="flex-1 md:ml-20 p-6 md:p-16 lg:p-24 relative z-10 flex flex-col min-h-screen">
         
-        <!-- Main Layout: Grid for Image and Data Box -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch mb-12">
+    
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch mb-12 scroll-reveal">
             
-            <!-- Left: Square Image Box -->
-            <div class="sun-square rounded-sm w-full">
-                <img src="../images/The Sun.png" 
+         
+           <div class="sun-square rounded-sm w-full">
+                
+                <img id="mainSunImage"
+                     src="../images/The Sun.png" 
+                     onerror="this.src='https://images.unsplash.com/photo-1614726365723-49cfae96a6f6?q=80&w=1000&auto=format&fit=crop'"
                      alt="The Sun" 
                      class="w-full h-full object-cover">
             </div>
 
-            <!-- Right: Content Data Box -->
+          
             <div class="glass-panel p-8 md:p-12 rounded-lg flex flex-col justify-between h-full relative">
-                
-                <!-- Title & Switch Container -->
+         
+
                 <div class="flex flex-col gap-6 border-b border-neutral-700 pb-6 mb-6">
                     <div class="flex justify-between items-start">
                         <h1 class="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter leading-none">The Sun</h1>
                         
-                        <!-- Toggle Switch -->
+                
                         <div class="flex items-center bg-black/40 rounded-full p-1 border border-neutral-800">
                             <button id="btnAstronomy" class="mode-btn active" onclick="setMode('astronomy')">Astronomy</button>
                             <button id="btnAstrology" class="mode-btn inactive" onclick="setMode('astrology')">Astrology</button>
@@ -203,10 +251,10 @@
                     </div>
                 </div>
 
-                <!-- DYNAMIC CONTENT: Statistics -->
+      
                 <div id="statsContainer" class="flex-1 flex flex-col justify-center space-y-8">
                     
-                    <!-- Astronomy Stats -->
+   
                     <div id="statsAstronomy" class="fade-in space-y-8">
                         <div class="border-b border-neutral-800 pb-4">
                             <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Alias</span>
@@ -226,7 +274,7 @@
                         </div>
                     </div>
 
-                    <!-- Astrology Stats (Hidden by default) -->
+                
                     <div id="statsAstrology" class="hidden fade-in space-y-8">
                         <div class="border-b border-neutral-800 pb-4">
                             <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Ruler Of</span>
@@ -250,10 +298,10 @@
             </div>
         </div>
 
-        <!-- DYNAMIC CONTENT: Description Text -->
-        <div class="text-neutral-300 leading-loose text-lg text-justify max-w-none min-h-[200px]">
+      
+        <div class="text-neutral-300 leading-loose text-lg text-center max-w-none min-h-[200px] mb-12 scroll-reveal">
             
-            <!-- Astronomy Text -->
+     
             <div id="textAstronomy" class="fade-in">
                 <p class="mb-6">
                     The Sun is the star at the centre of the Solar System. It is a massive, nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy from its surface mainly as visible light and infrared radiation with 10% at ultraviolet energies. It is the main source of energy for life on Earth. 
@@ -263,7 +311,6 @@
                 </p>
             </div>
 
-            <!-- Astrology Text (Hidden by default) -->
             <div id="textAstrology" class="hidden fade-in">
                 <p class="mb-6">
                     In astrology, the Sun represents the conscious ego, the self and its expression, personal power, pride and authority, leadership qualities and the principles of creativity, spontaneity, health and vitality, the life force. The Sun is the planetary ruler of Leo.
@@ -272,21 +319,75 @@
                     The placement of the Sun in your birth chart describes your core identity—the person you are becoming. While the Moon represents your emotions and inner world, the Sun represents the "you" that shines out to the world. It is the engine of your personality, driving your desires, your ambition, and your sense of purpose. A well-aspected Sun grants confidence, warmth, and the ability to lead, while a challenged Sun may struggle with ego, arrogance, or a lack of direction.
                 </p>
             </div>
-
         </div>
 
-        <div class="h-40"></div>
+      
+        <div class="mb-24 scroll-reveal">
+            <div class="border-l-4 border-yellow-500 bg-neutral-900/50 p-6 md:p-8 rounded-r-lg max-w-3xl">
+                <div class="flex items-start gap-4">
+                    <i class="ph ph-lightbulb text-yellow-500 text-3xl shrink-0 mt-1"></i>
+                    <div>
+                        <h3 class="text-white text-xl heading-font mb-2">Stellar Trivia</h3>
+                        <p class="text-neutral-300 leading-relaxed">
+                            Did you know? The Sun makes up a staggering <span class="text-white font-bold">99.86%</span> of the mass of the entire Solar System. The remaining 0.14% is mostly Jupiter! It consumes about 600 million tons of hydrogen every second, converting it into helium and pure energy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="mb-24">
+            <h3 class="text-2xl text-white uppercase heading-font mb-8 border-l-4 border-yellow-500 pl-4 scroll-reveal">Visual Archive</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+               
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 100ms;">
+                    <img src="../images/1/maxresdefault.jpg" alt="Sun Surface">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider">Surface Activity</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 200ms;">
+                    <img src="../images/1/201461017413510445-2014-07SightingsFp304.jpg" alt="Solar Flare">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider">Solar Flare</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 300ms;">
+                    <img src="../images/1/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg" alt="Eclipse">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider">Total Eclipse</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 400ms;">
+                    <img src="../images/1/The_Sun_Hero_image.jpg.webp" alt="Corona">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider">Solar Corona</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="mt-auto border-t border-neutral-800 pt-8 pb-4 text-center flex justify-center items-center scroll-reveal">
+            <p class="text-neutral-500 text-xs leading-relaxed max-w-4xl">
+                © 2025 Neev Jain. All Rights Reserved. This website and its content were created by Neev Jain. All information is based on data sourced from NASA, National Geographic, and other public space agencies. Images are used under public domain or with permission and are credited to their respective sources, primarily NASA.
+            </p>
+        </footer>
+
     </main>
 
     <script>
-        // Parallax Logic
         const bg = document.getElementById('parallaxBg');
         window.addEventListener('scroll', () => {
             const scrollPosition = window.pageYOffset;
             bg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
         });
 
-        // Toggle Logic
         function setMode(mode) {
             const astroBtn = document.getElementById('btnAstrology');
             const nomyBtn = document.getElementById('btnAstronomy');
@@ -298,36 +399,54 @@
             const textNomy = document.getElementById('textAstronomy');
 
             if (mode === 'astrology') {
-                // Activate Astrology Button
+            
                 astroBtn.classList.add('active');
                 astroBtn.classList.remove('inactive');
                 nomyBtn.classList.remove('active');
                 nomyBtn.classList.add('inactive');
 
-                // Show Astrology Content
                 statsAstro.classList.remove('hidden');
                 textAstro.classList.remove('hidden');
                 
-                // Hide Astronomy Content
                 statsNomy.classList.add('hidden');
                 textNomy.classList.add('hidden');
 
             } else {
-                // Activate Astronomy Button
+        
                 nomyBtn.classList.add('active');
                 nomyBtn.classList.remove('inactive');
                 astroBtn.classList.remove('active');
                 astroBtn.classList.add('inactive');
 
-                // Show Astronomy Content
                 statsNomy.classList.remove('hidden');
                 textNomy.classList.remove('hidden');
                 
-                // Hide Astrology Content
                 statsAstro.classList.add('hidden');
                 textAstro.classList.add('hidden');
             }
         }
+
+    
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach((el) => {
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
