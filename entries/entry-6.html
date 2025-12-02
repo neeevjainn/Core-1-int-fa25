@@ -3,127 +3,448 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sun | Celestia Nexus</title>
+    <title>Mars | Celestia Nexus</title>
     
-    <!-- Link to Tailwind CSS for utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Link to Google Fonts -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Krona+One&display=swap" rel="stylesheet">
     
-    <!-- Custom Styles for this page -->
     <style>
-        /* Apply base styles consistent with the main page */
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #000000;
             color: #E0E0E0;
-            /* The path is '../' because this file is in a subfolder */
-            background-image: url('../images/Main Background Full.png');
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
-            opacity: 0; /* Initially hidden for fade-in transition */
-            animation: fadeInPage 0.5s ease-out forwards;
+            overflow-x: hidden;
         }
-        h1, h2, h3 {
+
+        h1, h2, h3, .heading-font {
             font-family: 'Krona One', sans-serif;
         }
-        /* Style for the active toggle button */
-        .toggle-btn.active {
-            background-color: #FFFFFF;
-            color: #000000;
+
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120vh;
+            z-index: -1;
+            background-image: url('/images/Mars-FullBG.png'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            will-change: transform;
+            pointer-events: none;
         }
-        /* Fade-in animation for page load */
-        @keyframes fadeInPage {
-            to { opacity: 1; }
+
+        .sidebar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid #333;
+            scrollbar-width: none;
         }
-        /* Animation for the planet image */
-        .planet-image {
-            animation: fadeInPlanet 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            transform: scale(0);
+        .sidebar::-webkit-scrollbar { 
+            display: none;
+        }
+
+        .nav-icon {
+            color: #666;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .nav-icon:hover {
+            color: #FFF;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-link-num {
+            font-family: 'Krona One', sans-serif;
+            font-size: 0.8rem;
+            color: #444;
+            transition: color 0.3s ease;
+            padding: 8px 0;
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
+        .nav-link-num:hover {
+            color: #FFF;
+        }
+
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sun-square {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border: 1px solid rgba(255, 200, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 100, 0, 0.1);
+            position: relative;
+        }
+
+        .sun-square img {
+            transition: transform 10s ease-out;
+        }
+        .sun-square:hover img {
+            transform: scale(1.1);
+        }
+
+        sup {
+            font-size: 0.6em;
+            vertical-align: super;
+        }
+
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #68D391;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #68D391;
+        }
+        
+        .mode-btn {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .mode-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+        .mode-btn.inactive {
+            color: #666;
+        }
+        
+    
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+       
+        .scroll-reveal {
             opacity: 0;
+            transform: translateY(50px); 
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        @keyframes fadeInPlanet {
-            to {
-                transform: scale(3);
-                opacity: 1;
-            }
+        
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+       
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col md:flex-row">
+<body class="min-h-screen flex">
 
-    <!-- Left Column: Planet Image (1/5th width on medium screens and up) -->
-    <div class="w-auto h-auto md:w-1/5 md:max-h-screen flex items-center overflow-y-auto ">
-        <img src="../images/Mars.png" alt="Mars" class="planet-image w-full h-auto max-w-full md:max-w-full">
-    </div>
+    <div id="parallaxBg" class="parallax-bg"></div>
 
-    <!-- Right Column: Content (Full width on small screens, 4/5th on medium and up) -->
-    <main class="w-full md:w-4/5 p-6 sm:p-8 md:p-12 lg:p-16 overflow-y-auto">
+
+    <nav class="sidebar fixed top-0 left-0 h-screen w-20 flex flex-col items-center py-6 z-50 hidden md:flex overflow-y-auto">
+
+    
+        <a href="index.html" class="nav-icon mb-4" title="Home">
+            <i class="ph ph-house text-2xl"></i>
+        </a>
         
-        <!-- Back Link -->
-        <a href="../index.html" class="inline-block text-neutral-400 hover:text-white transition-colors mb-8">&larr; Back to Nexus</a>
+        <div class="w-8 h-px bg-neutral-800 mb-6"></div>
 
-        <!-- Title -->
-        <h1 class="text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-8">MARS</h1>
+        <div class="flex flex-col gap-4 w-full text-center">
+            <a href="entry-1.html" class="nav-link-num">01</a>
+            <a href="entry-2.html" class="nav-link-num">02</a>
+            <a href="entry-3.html" class="nav-link-num">03</a>
+            <a href="entry-4.html" class="nav-link-num">04</a>
+            <a href="entry-5.html" class="nav-link-num">05</a>
+            <a href="entry-6.html" class="nav-link-num">06</a>
+            <a href="entry-7.html" class="nav-link-num">07</a>
+            <a href="entry-8.html" class="nav-link-num">08</a>
+            <a href="entry-9.html" class="nav-link-num">09</a>
+            <a href="entry-10.html" class="nav-link-num">10</a>
+            <a href="entry-11.html" class="nav-link-num">11</a>
+        </div>
+    </nav>
 
-        <!-- Toggle Section -->
-        <div>
-            <!-- Toggle Buttons -->
-            <div class="flex border border-neutral-700 rounded-lg p-1 mb-6 max-w-xs">
-                <button id="astroToggle" class="toggle-btn w-1/2 p-2 rounded-md text-center transition-colors duration-300 active">
-                    Astrology
-                </button>
-                <button id="nomyToggle" class="toggle-btn w-1/2 p-2 rounded-md text-center transition-colors duration-300">
-                    Astronomy
-                </button>
+
+    <main class="flex-1 md:ml-20 p-6 md:p-16 lg:p-24 relative z-10 flex flex-col min-h-screen">
+        
+    
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch mb-12 scroll-reveal">
+            
+         
+           <div class="sun-square rounded-sm w-full">
+                
+                <img id="mainSunImage"
+                     src="../images/Mars.png" 
+                     onerror="this.src='https://images.unsplash.com/photo-1614726365723-49cfae96a6f6?q=80&w=1000&auto=format&fit=crop'"
+                     alt="Mars" 
+                     class="w-full h-full object-cover">
             </div>
 
-            <!-- Content Panes -->
-            <div class="text-neutral-300 leading-relaxed max-w-4xl">
-                <!-- Astrology Content -->
-                <div id="astrologyContent">
-                    <h2 class="text-2xl text-white mb-4">Astrological Significance</h2>
-                    <p class="mb-4">In astrology, the Sun represents the conscious ego, the self and its expression, personal power, pride and authority, leadership qualities and the principles of creativity, spontaneity, health and vitality, the life force.</p>
-                    <p class="mb-4">It is the core of your potential and uniqueness as an individual. The Sun's placement in a zodiac sign reveals the primal urges and the fundamental motivations of an individual. It signifies how we shine our light into the world.</p>
+          
+            <div class="glass-panel p-8 md:p-12 rounded-lg flex flex-col justify-between h-full relative">
+         
+
+                <div class="flex flex-col gap-6 border-b border-neutral-700 pb-6 mb-6">
+                    <div class="flex justify-between items-start">
+                        <h1 class="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter leading-none">Mars</h1>
+                        
+                
+                        <div class="flex items-center bg-black/40 rounded-full p-1 border border-neutral-800">
+                            <button id="btnAstronomy" class="mode-btn active" onclick="setMode('astronomy')">Astronomy</button>
+                            <button id="btnAstrology" class="mode-btn inactive" onclick="setMode('astrology')">Astrology</button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Astronomy Content -->
-                <div id="astronomyContent" class="hidden">
-                    <h2 class="text-2xl text-white mb-4">Astronomical Facts</h2>
-                    <p class="mb-4">The Sun is the star at the center of the Solar System. It is a nearly perfect ball of hot plasma, heated to incandescence by nuclear fusion reactions in its core. The Sun radiates this energy mainly as light, ultraviolet, and infrared radiation, and is the most important source of energy for life on Earth.</p>
-                    <p class="mb-4">Its diameter is about 1.39 million kilometers (864,000 miles), or 109 times that of Earth. Its mass is about 330,000 times that of Earth, making up about 99.86% of the total mass of the Solar System.</p>
+      
+                <div id="statsContainer" class="flex-1 flex flex-col justify-center space-y-8">
+                    
+   
+                    <div id="statsAstronomy" class="fade-in space-y-8">
+                        <div class="border-b border-neutral-800 pb-4">
+                            <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Alias</span>
+                            <span class="text-white font-bold text-xl">Ares, The Red Planet</span>
+                        </div>
+                        
+                        <div class="border-b border-neutral-800 pb-4">
+                            <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Volume</span>
+                            <span class="text-white text-xl">1.631×10<sup>11</sup> km<sup>3</sup></span>
+                            <div class="text-yellow-500 text-sm mt-1 font-mono">0.151 × Earth</div>
+                        </div>
+                        
+                        <div>
+                            <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Mass</span>
+                            <span class="text-white text-xl">6.39×10<sup>23</sup> kg</span>
+                            <div class="text-yellow-500 text-sm mt-1 font-mono">0.107 × Earth</div>
+                        </div>
+                    </div>
+
+                
+                    <div id="statsAstrology" class="hidden fade-in space-y-8">
+                        <div class="border-b border-neutral-800 pb-4">
+                            <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Ruler Of</span>
+                            <span class="text-white font-bold text-xl">Aries</span>
+                        </div>
+                        
+                        <div class="border-b border-neutral-800 pb-4">
+                            <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Element</span>
+                            <span class="text-white text-xl">Fire</span>
+                            <div class="text-yellow-500 text-sm mt-1 font-mono">Creative Force</div>
+                        </div>
+                        
+                        <div>
+                            <span class="text-neutral-500 uppercase text-xs tracking-[0.2em] block mb-2 heading-font">Represents</span>
+                            <span class="text-white text-xl">Action, Desire, Aggression, Energy</span>
+                            <div class="text-yellow-500 text-sm mt-1 font-mono">The Conscious Mind</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
 
+      
+        <div class="text-neutral-300 leading-loose text-lg text-center max-w-none min-h-[200px] mb-12 scroll-reveal">
+            
+     
+            <div id="textAstronomy" class="fade-in">
+                <p class="mb-6">
+                    Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System. It is often referred to as the "Red Planet" because the iron oxide prevalent on its surface gives it a reddish appearance. Mars is a terrestrial planet with a thin atmosphere, having surface features reminiscent both of the impact craters of the Moon and the valleys, deserts, and polar ice caps of Earth.
+
+It is home to Olympus Mons, the largest volcano and highest known mountain on any planet in the Solar System, and Valles Marineris, one of the largest canyons.
+                </p>
+            </div>
+
+            <div id="textAstrology" class="hidden fade-in">
+                <p class="mb-6">
+                    Mars is the planet of action, energy, and desire. It governs our animal instincts for aggression, anger, and survival. Mars represents how we assert ourselves, how we go after what we want, and our sexual drive. It is the warrior archetype.
+
+In the birth chart, Mars shows where we expend our energy and how we express anger. A well-placed Mars gives courage and drive, while a difficult placement can lead to impulsiveness, conflict, or burnout.
+                </p>
+            </div>
+        </div>
+
+      
+        <div class="mb-24 scroll-reveal">
+            <div class="border-l-4 border-yellow-500 bg-neutral-900/50 p-6 md:p-8 rounded-r-lg max-w-3xl">
+                <div class="flex items-start gap-4">
+                    <i class="ph ph-lightbulb text-yellow-500 text-3xl shrink-0 mt-1"></i>
+                    <div>
+                        <h3 class="text-white text-xl heading-font mb-2">Stellar Trivia</h3>
+                        <p class="text-neutral-300 leading-relaxed">
+                            Mars has the largest dust storms in the solar system. They can last for months and cover the entire planet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="mb-24">
+            <h3 class="text-2xl text-white uppercase heading-font mb-8 border-l-4 border-yellow-500 pl-4 scroll-reveal">Visual Archive</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+               
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 100ms;">
+                    <img src="../images/5/Mars_global-surface-true-color_Mars-Express_HRSC_ESA_1m.jpg" alt="">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider"></span>
+                    </div>
+                </div>
+
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 200ms;">
+                    <img src="../images/5/93588.jpg" alt="">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider"></span>
+                    </div>
+                </div>
+
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 300ms;">
+                    <img src="../images/5/mars-2030-virtual-reality-4.jpg.webp" alt="">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider"></span>
+                    </div>
+                </div>
+
+                <div class="gallery-item aspect-video md:aspect-square scroll-reveal" style="transition-delay: 400ms;">
+                    <img src="../images/5/u1jljqzj904a1.jpg" alt="a">
+                    <div class="gallery-overlay">
+                        <span class="text-white text-sm font-bold tracking-wider"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="mt-auto border-t border-neutral-800 pt-8 pb-4 text-center flex justify-center items-center scroll-reveal">
+            <p class="text-neutral-500 text-xs leading-relaxed max-w-4xl">
+                © 2025 Neev Jain. All Rights Reserved. This website and its content were created by Neev Jain. All information is based on data sourced from NASA, National Geographic, and other public space agencies. Images are used under public domain or with permission and are credited to their respective sources, primarily NASA.
+            </p>
+        </footer>
+
     </main>
-    
+
     <script>
-        const astroToggle = document.getElementById('astroToggle');
-        const nomyToggle = document.getElementById('nomyToggle');
-        const astrologyContent = document.getElementById('astrologyContent');
-        const astronomyContent = document.getElementById('astronomyContent');
+        const bg = document.getElementById('parallaxBg');
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            bg.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+        });
 
-        function showAstrology() {
-            astrologyContent.classList.remove('hidden');
-            astronomyContent.classList.add('hidden');
-            astroToggle.classList.add('active');
-            nomyToggle.classList.remove('active');
+        function setMode(mode) {
+            const astroBtn = document.getElementById('btnAstrology');
+            const nomyBtn = document.getElementById('btnAstronomy');
+            
+            const statsAstro = document.getElementById('statsAstrology');
+            const statsNomy = document.getElementById('statsAstronomy');
+            
+            const textAstro = document.getElementById('textAstrology');
+            const textNomy = document.getElementById('textAstronomy');
+
+            if (mode === 'astrology') {
+            
+                astroBtn.classList.add('active');
+                astroBtn.classList.remove('inactive');
+                nomyBtn.classList.remove('active');
+                nomyBtn.classList.add('inactive');
+
+                statsAstro.classList.remove('hidden');
+                textAstro.classList.remove('hidden');
+                
+                statsNomy.classList.add('hidden');
+                textNomy.classList.add('hidden');
+
+            } else {
+        
+                nomyBtn.classList.add('active');
+                nomyBtn.classList.remove('inactive');
+                astroBtn.classList.remove('active');
+                astroBtn.classList.add('inactive');
+
+                statsNomy.classList.remove('hidden');
+                textNomy.classList.remove('hidden');
+                
+                statsAstro.classList.add('hidden');
+                textAstro.classList.add('hidden');
+            }
         }
 
-        function showAstronomy() {
-            astronomyContent.classList.remove('hidden');
-            astrologyContent.classList.add('hidden');
-            nomyToggle.classList.add('active');
-            astroToggle.classList.remove('active');
-        }
+    
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 
+        };
 
-        astroToggle.addEventListener('click', showAstrology);
-        nomyToggle.addEventListener('click', showAstronomy);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach((el) => {
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
