@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sun - Space Exploration</title>
+    <style>
+        /* --- RESET & GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #050505;
+            /* Placeholder for the nebula background */
+            background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2011&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* The "Glass" effect for cards */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .back-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .nav-bar {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            height: 50px;
+            border-radius: 25px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .page-num {
+            font-size: 2rem;
+            font-weight: bold;
+            opacity: 0.8;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .toggle-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .toggle-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .toggle-btn.active {
+            background: #CUA888; /* Beige color from image */
+            background-color: rgba(210, 180, 140, 0.8);
+            color: #000;
+        }
+
+        .toggle-btn.inactive {
+            background: transparent;
+            color: #d2b48c; 
+            border: 1px solid #d2b48c; /* Outline style */
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .sun-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .sun-visual {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 30px 5px rgba(255, 165, 0, 0.6);
+            margin-bottom: 20px;
+        }
+
+        .sun-title {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        .info-card {
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .info-header span {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .info-header strong {
+            color: white;
+        }
+
+        .info-text {
+            margin-top: 15px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- STATS ROW --- */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-title {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .stat-desc {
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+
+        /* --- FUN FACT --- */
+        .fun-fact-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            gap: 40px;
+        }
+
+        .fun-text {
+            flex: 1;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        .fun-header {
+            flex: 1;
+            font-size: 3rem;
+            line-height: 0.9;
+            text-transform: uppercase;
+            font-weight: 900;
+            text-align: right;
+        }
+
+        /* --- GALLERY --- */
+        .gallery-title {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 200px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Specialized grid spans for bottom row simulation */
+        .gallery-grid .wide {
+            grid-column: span 2;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #aaa;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-grid, .stats-row, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fun-fact-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .fun-header {
+                text-align: center;
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+            
+            .nav-bar {
+                order: 3;
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="back-btn glass-panel">&larr;</div>
+            
+            <div class="nav-bar glass-panel">
+                <div class="nav-left">
+                    <span class="page-num">01</span>
+                    <div class="nav-links">
+                        <a href="#">Home</a>
+                        <a href="#">Facts</a>
+                        <a href="#">Image Gallery</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toggle-group">
+                <div class="toggle-btn active">Astronomy</div>
+                <div class="toggle-btn inactive">Astrology</div>
+            </div>
+        </header>
+
+        <section class="hero-grid">
+            <div class="sun-card glass-panel">
+                <img src="https://images.unsplash.com/photo-1614726365723-49cfa9498bfe?q=80&w=1000&auto=format&fit=crop" alt="The Sun" class="sun-visual">
+                <h1 class="sun-title">The Sun</h1>
+            </div>
+
+            <div class="info-card glass-panel">
+                <div class="info-header">
+                    <span><strong>Alias:</strong> Sun, Sol, Sól, Helios</span>
+                    <span><strong>Volume:</strong> 1.412 x 10^18 km³ (1,300,000 x Earth volume)</span>
+                    <span><strong>Mass:</strong> 1.9885 x 10^30 kg (332,950 x Earth's Mass)</span>
+                </div>
+                <p class="info-text">
+                    The Sun is the star at the center of the Solar System. It is a massive, nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy from its surface mainly as visible light and infrared radiation with 10% at ultraviolet energies. It is the main source of energy for life on Earth. The Sun has been an object of veneration in many cultures and a central subject for astronomical research since antiquity.
+                </p>
+            </div>
+        </section>
+
+        <section class="stats-row">
+            <div class="stat-card glass-panel">
+                <span class="stat-icon">⚲</span> <h3 class="stat-title">Radius</h3>
+                <p class="stat-desc">The Sun's radius is approximately 695,700 kilometers (432,300 miles), about 109 times Earth's radius.</p>
+            </div>
+            <div class="stat-card glass-panel">
+                <span class="stat-icon">🪐</span>
+                <h3 class="stat-title">Age</h3>
+                <p class="stat-desc">The Sun is about 4.6 billion years old, meaning it is a middle-aged star and halfway through its life.</p>
+            </div>
+            <div class="stat-card glass-panel">
+                <span class="stat-icon">↔</span>
+                <h3 class="stat-title">Distance</h3>
+                <p class="stat-desc">The Sun is about 93 million miles (150 million km) from Earth, a distance called one Astronomical Unit.</p>
+            </div>
+        </section>
+
+        <section class="fun-fact-section">
+            <div class="fun-text">
+                While the Sun's visible surface (the photosphere) is a scorching 10,000°F (or 5,500°C), its outer atmosphere, called the corona, regularly reaches temperatures of 1.8 to 3.6 million degrees Fahrenheit—and can even spike to tens of millions of degrees during a solar flare.
+            </div>
+            <div class="fun-header">
+                Here's A<br>Fun Fact
+            </div>
+        </section>
+
+        <div class="gallery-title">Image Gallery</div>
+        <section class="gallery-grid">
+            <div class="gallery-item glass-panel">
+                <img src="https://images.unsplash.com/photo-1532040650772-399e3617f5d6?q=80&w=800" alt="Sun 1">
+            </div>
+            <div class="gallery-item glass-panel">
+                <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=800" alt="Sun 2">
+            </div>
+            <div class="gallery-item glass-panel">
+                <img src="https://images.unsplash.com/photo-1548506980-642688043e78?q=80&w=800" alt="Sun 3">
+            </div>
+            <div class="gallery-item glass-panel wide">
+                <img src="https://images.unsplash.com/photo-1598517573482-0c98514497e4?q=80&w=1000" alt="Sun 4">
+            </div>
+            <div class="gallery-item glass-panel">
+                <img src="https://images.unsplash.com/photo-1529788295308-1eace6f67388?q=80&w=800" alt="Sun 5">
+            </div>
+        </section>
+
+        <footer class="glass-panel">
+            &copy; 2025 Neev Jain. All Rights Reserved. This website and its content were created by Neev Jain. Data sourced from NASA.
+        </footer>
+
+    </div>
+
+</body>
+</html>
