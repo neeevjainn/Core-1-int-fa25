@@ -3,164 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celestia Nexus</title>
+    <title>Celestia Nexus | Home</title>
    
-    <script src="https://cdn.tailwindcss.com"></script>
+   <script src="https://cdn.tailwindcss.com"></script>
     
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Krona+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #E0E0E0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .heading-font {
+            font-family: 'Krona One', sans-serif;
+        }
+
+        .starfield-bg {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            z-index: -1;
+            background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2672&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            transition: transform 0.1s ease-out;
+        }
+
+        .glass-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-down {
+            animation: fadeInDown 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white text-center">
+<body class="min-h-screen flex flex-col">
 
-    <div class="container mx-auto px-4 py-12 md:py-20">
+    <div id="starfield" class="starfield-bg"></div>
 
-        <header class="mb-12 md:mb-16">
-            <h1 class="text-5xl md:text-7xl font-black text-white mb-4">Celestia Nexus</h1>
-            <p class="max-w-3xl mx-auto text-lg text-gray-300">
-                Where science and spirit meet - update
+    <header class="h-screen flex flex-col justify-center items-center text-center px-4 relative">
+        <div class="fade-in-down z-10">
+            <h1 class="text-5xl md:text-7xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mb-6 tracking-tighter uppercase">
+                Celestia Nexus
+            </h1>
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-light tracking-wide">
+                Where Science Meets Spirit
             </p>
-        </header>
+        </div>
 
-        <main>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+            <i class="ph ph-caret-double-down text-3xl text-white opacity-70"></i>
+        </div>
+    </header>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-1.html">
-                        <img src="../images/The Sun.png" alt="The Sun" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Sun</h2>
-                        <p class="text-gray-300 text-sm">The star at the center of our solar system.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-2.html">
-                        <img src="../images/Mercury.png" alt="Mercury" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Mercury</h2>
-                        <p class="text-gray-300 text-sm">The smallest planet, closest to the sun, with extreme temperatures.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-3.html">
-                        <img src="../images/Venus.png" alt="Venus" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Venus</h2>
-                        <p class="text-gray-300 text-sm">Earth's twin, shrouded in a thick, toxic, crushing atmosphere.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-4.html">
-                        <img src="../images/Earth.png" alt="Earth" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Earth</h2>
-                        <p class="text-gray-300 text-sm">Our home planet, an oasis of life in the cosmos.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-5.html">
-                        <img src="../images/The Moon.png" alt="Moon" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Moon</h2>
-                        <p class="text-gray-300 text-sm">Earth's natural satellite, controlling our tides and lighting the night.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-6.html">
-                        <img src="../images/Mars.png" alt="Mars" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Mars</h2>
-                        <p class="text-gray-300 text-sm">The red planet, a dusty, cold world with a thin atmosphere.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-7.html">
-                        <img src="../images/Jupiter.png" alt="Jupiter" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Jupiter</h2>
-                        <p class="text-gray-300 text-sm">A gas giant, the largest planet, with a massive storm.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-8.html">
-                        <img src="../images/Saturn.png" alt="Saturn" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Saturn</h2>
-                        <p class="text-gray-300 text-sm">The ringed jewel of the solar system, a majestic giant.</p>
-                    </div>
-                </div>
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden">
-                    <a href="entries/entry-9.html">
-                        <img src="../images/Uranus.png" alt="Uranus" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Uranus</h2>
-                        <p class="text-gray-300 text-sm">An ice giant that rotates on its side, strangely unique.</p>
-                    </div>
+    <main class="container mx-auto px-4 py-12 md:py-24 z-10">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            
+            <div class="glass-card rounded-xl overflow-hidden reveal group">
+                <a href="entries/entry-1.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/The Sun.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614726365723-49cfae96a6f6?q=80&w=800&auto=format&fit=crop'" 
+                         alt="The Sun" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-yellow-500 tracking-widest uppercase mb-2 block">01</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Sun</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">The star at the center of our solar system.</p>
                 </div>
             </div>
 
-            <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-8">
-
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden w-full sm:w-auto sm:max-w-sm">
-                    <a href="entries/entry-10.html">
-                        <img src="../images/neptune.png" alt="Neptune" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Neptune</h2>
-                        <p class="text-gray-300 text-sm">A dark, cold ice giant with supersonic winds and storms.</p>
-                    </div>
+            <div class="glass-card rounded-xl overflow-hidden reveal group" style="transition-delay: 100ms;">
+                <a href="entries/entry-2.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Mercury.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614728963931-12973cac1a88?q=80&w=800&auto=format&fit=crop'"
+                         alt="Mercury" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-gray-500 tracking-widest uppercase mb-2 block">02</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Mercury</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">The smallest planet, closest to the sun.</p>
                 </div>
+            </div>
 
-                <div class="photo-entry bg-black-800/70 backdrop-filter: blur(200px) rounded-lg overflow-hidden w-full sm:w-auto sm:max-w-sm">
-                    <a href="entries/entry-11.html">
-                        <img src="../images/Pluto.png" alt="Pluto" class="w-full aspect-square object-cover">
-                    </a>
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold mb-2">Pluto</h2>
-                        <p class="text-gray-300 text-sm">A complex dwarf planet with a big heart on its surface.</p>
-                    </div>
+            <div class="glass-card rounded-xl overflow-hidden reveal group" style="transition-delay: 200ms;">
+                <a href="entries/entry-3.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Venus.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1619204715997-13556ba483c5?q=80&w=800&auto=format&fit=crop'"
+                         alt="Venus" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-orange-400 tracking-widest uppercase mb-2 block">03</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Venus</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">Earth's twin, shrouded in a toxic atmosphere.</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-xl overflow-hidden reveal group">
+                <a href="entries/entry-4.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Earth.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614730341194-75c607ae825c?q=80&w=800&auto=format&fit=crop'"
+                         alt="Earth" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-blue-400 tracking-widest uppercase mb-2 block">04</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Earth</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">Our home planet, an oasis of life.</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-xl overflow-hidden reveal group" style="transition-delay: 100ms;">
+                <a href="entries/entry-5.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/The Moon.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?q=80&w=800&auto=format&fit=crop'"
+                         alt="Moon" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-gray-400 tracking-widest uppercase mb-2 block">05</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">The Moon</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">Earth's satellite, ruler of the tides.</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-xl overflow-hidden reveal group" style="transition-delay: 200ms;">
+                <a href="entries/entry-6.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Mars.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614728522235-4935ad629563?q=80&w=800&auto=format&fit=crop'"
+                         alt="Mars" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-red-500 tracking-widest uppercase mb-2 block">06</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Mars</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">The red planet, a dusty, cold world.</p>
                 </div>
             </div>
             
-        </main>
+            <div class="glass-card rounded-xl overflow-hidden reveal group">
+                <a href="entries/entry-7.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Jupiter.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?q=80&w=800&auto=format&fit=crop'"
+                         alt="Jupiter" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-orange-300 tracking-widest uppercase mb-2 block">07</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Jupiter</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">The gas giant, king of the planets.</p>
+                </div>
+            </div>
 
-    </div>
-    
-<script>
-    document.addEventListener('mousemove', function(e) {
-        const body = document.querySelector('body');
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        
-        const moveX = (e.clientX / width) - 0.5;
-        const moveY = (e.clientY / height) - 0.5;
-        
-        const panX = moveX * 20;
-        const panY = moveY * 20;
-        
-        body.style.backgroundPosition = `${50 - panX}% ${50 - panY}%`;
-    });
-</script>
+            <div class="glass-card rounded-xl overflow-hidden reveal group" style="transition-delay: 100ms;">
+                <a href="entries/entry-8.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Saturn.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614732414444-096e6f5802e0?q=80&w=800&auto=format&fit=crop'"
+                         alt="Saturn" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-yellow-200 tracking-widest uppercase mb-2 block">08</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Saturn</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">The ringed jewel of the solar system.</p>
+                </div>
+            </div>
 
+            <div class="glass-card rounded-xl overflow-hidden reveal group" style="transition-delay: 200ms;">
+                <a href="entries/entry-9.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Uranus.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614726365458-9ecce10046ea?q=80&w=800&auto=format&fit=crop'"
+                         alt="Uranus" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-cyan-300 tracking-widest uppercase mb-2 block">09</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Uranus</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">The ice giant that rotates on its side.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-8 reveal">
+            
+            <div class="glass-card rounded-xl overflow-hidden reveal group w-full sm:w-auto sm:max-w-sm flex-1">
+                <a href="entries/entry-10.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/neptune.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614314107768-6019628b74c4?q=80&w=800&auto=format&fit=crop'"
+                         alt="Neptune" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-blue-600 tracking-widest uppercase mb-2 block">10</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Neptune</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">A dark, cold ice giant with storms.</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-xl overflow-hidden reveal group w-full sm:w-auto sm:max-w-sm flex-1" style="transition-delay: 100ms;">
+                <a href="entries/entry-11.html" class="block overflow-hidden aspect-square">
+                    <img src="../images/Pluto.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1614314169000-48520470d836?q=80&w=800&auto=format&fit=crop'"
+                         alt="Pluto" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </a>
+                <div class="p-6">
+                    <span class="text-xs font-bold text-gray-600 tracking-widest uppercase mb-2 block">11</span>
+                    <h2 class="text-2xl font-bold text-white mb-2 heading-font">Pluto</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">A complex dwarf planet with a big heart.</p>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer class="mt-auto border-t border-neutral-800 pt-12 pb-8 text-center bg-black/80 backdrop-blur-md z-10">
+        <p class="text-neutral-500 text-xs leading-relaxed max-w-4xl mx-auto px-4">
+            © 2025 Neev Jain. All Rights Reserved. This website and its content were created by Neev Jain. All information is based on data sourced from NASA, National Geographic, and other public space agencies. Images are used under public domain or with permission and are credited to their respective sources, primarily NASA.
+        </p>
+    </footer>
+
+    <script>
+
+        document.addEventListener('mousemove', function(e) {
+            const bg = document.getElementById('starfield');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            const moveX = (e.clientX / width) - 0.5;
+            const moveY = (e.clientY / height) - 0.5;
+            
+            const panX = moveX * 20;
+            const panY = moveY * 20;
+            
+            bg.style.transform = `translate(${panX}px, ${panY}px)`;
+        });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+             
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
